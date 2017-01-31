@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.globant.citymanagerweb.helpers.DBWorldQueries;
 import com.globant.citymanagerweb.models.DBManager;
-import com.globant.citymanagerweb.models.MySQLServerConnectionBehavior;
-import com.globant.citymanagerweb.models.ServerConnectionBehavior;
 
 /**
  * Servlet implementation class ListAllCities
@@ -39,20 +37,7 @@ public class ListAllCities extends HttpServlet {
 		
 		//generate the output in a StringBuilder
 		StringBuilder sb = new StringBuilder("<html><body>");
-		/*
-		//get db conn info from context init params
-		String uid = getServletContext().getInitParameter("dbuserid");
-		String pwd = getServletContext().getInitParameter("dbuserpwd");
-		String cat = getServletContext().getInitParameter("dbinitcat");
 		
-		//set the scb for mySQL
-		ServerConnectionBehavior scb = new MySQLServerConnectionBehavior(uid, pwd, cat);
-		System.out.println(scb.getConnectionDetails());
-		System.out.println(scb.getConnectionUrl());
-		
-		//create the manager
-		DBManager dbm = new DBManager(scb);
-		*/
 		try {
 			
 			//connect to the db and open the connection
@@ -68,8 +53,6 @@ public class ListAllCities extends HttpServlet {
 			sb.append("<table border='1'>"
 					+ "<tr><td>ID</td><td>Name</td><td>Country code</td><td>District</td><td>Population</td></tr>");
 			
-			// Not MCV, queries should be logic outside of the controller
-			//String query = "select * from city where CountryCode = 'USA' order by District ASC, Population DESC";
 			String query = DBWorldQueries.getUSACitiesOrderedByDistrictAndPopulation();
 			ResultSet rs = dbm.ExecuteResultSet(query);
 			while(rs.next()) {
