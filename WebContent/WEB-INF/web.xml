@@ -3,15 +3,26 @@
   <display-name>CityManagerWeb</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>servletparameters</servlet-name>
+    <servlet-class>com.globant.citymanagerweb.servlets.ServletParameters</servlet-class>
+    <init-param>
+      <param-name>secretCode</param-name>
+      <param-value>111-11-1111</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>servletparameters</servlet-name>
+    <url-pattern>/ServletParameters.do</url-pattern>
+  </servlet-mapping>
   <listener>
     <listener-class>com.globant.citymanagerweb.helpers.DBManagerSetup</listener-class>
   </listener>
+  <context-param>
+    <param-name>dbURL</param-name>
+    <param-value>jdbc:mysql://localhost/world</param-value>
+  </context-param>
   <context-param>
     <param-name>dbuserid</param-name>
     <param-value>root</param-value>
