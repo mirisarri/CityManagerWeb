@@ -2,6 +2,7 @@ package com.globant.citymanagerweb.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainMenuResponder
+ * Servlet implementation class MainMenuResponderTwo
  */
-@WebServlet("/mainmenuresponder.do")
-public class MainMenuResponder extends HttpServlet {
+@WebServlet("/mainmenurespondertwo.do")
+public class MainMenuResponderTwo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainMenuResponder() {
+    public MainMenuResponderTwo() {
         super();
     }
 
@@ -33,51 +34,28 @@ public class MainMenuResponder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.setContentType("text/html");
 		
 		//get the form parameter that was posted
 		String userChoice = request.getParameter("menuChoice");
 		String[] userOptions = request.getParameterValues("adminoptions");
-		StringBuilder params = new StringBuilder("");
-		String queryStringParams = "";
+		
+		request.setAttribute("userChoice", userChoice);
 		if(userOptions != null) {
 			
-			boolean isFirst = true;
 			for(int i=0; i<userOptions.length; i++) {
 				
-				if(!isFirst) {
-					params.append("&");
-				}
-				else {
-					params.append("?");
-				}
-				
 				if(userOptions[i].equalsIgnoreCase("useDB")) {
-					params.append("useDB=1");
+					request.setAttribute("useDB", "1");
 				}
-				else if(userOptions[i].equalsIgnoreCase("sendEmail")) {
-					params.append("sendEmail=1");
+				if(userOptions[i].equalsIgnoreCase("sendEmail")) {
+					request.setAttribute("sendEmail", "1");
 				}
-				
-				isFirst = false;
 			}
-			
-			queryStringParams = params.toString();
 		}
 		
-		if(userChoice.equals("1")) {
-			response.sendRedirect("ListCities.html" + queryStringParams);
-		}
-		else if(userChoice.equals("2")) {
-			response.sendRedirect("AddCity.html" + queryStringParams);
-		}
-		else if(userChoice.equals("1")) {
-			response.sendRedirect("DeleteCity.html" + queryStringParams);
-		}
-		else {
-			//invalid response
-			response.sendRedirect("index.html");
-		}
+		//HTML files can't read attributes so we will first send to an intermediary servlet
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/mainmenuresponderhelper.do");
+		dispatcher.forward(request, response);
 	}
+
 }
