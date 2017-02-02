@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 public class DBManager implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Connection conn = null;
 	private ServerConnectionBehavior scb = null;
 	private static final int ERROR_CODE = -1;

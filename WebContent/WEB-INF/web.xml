@@ -20,6 +20,10 @@
     <listener-class>com.globant.citymanagerweb.helpers.DBManagerSetup</listener-class>
   </listener>
   <context-param>
+    <param-name>initialseed</param-name>
+    <param-value>2</param-value>
+  </context-param>
+  <context-param>
     <param-name>dbURL</param-name>
     <param-value>jdbc:mysql://localhost/world</param-value>
   </context-param>

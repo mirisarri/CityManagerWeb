@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Welcome to the City Manager</title>
+	</head>
+	<body>
+		<table style="width:600px">
+			<tr>
+				<td style="width:100%">
+					<form id="formNonThreadSafe" method="post" action="/CityManagerWeb/threadsafegetseed.do">
+						<span>Select one:</span><br>
+						<input type="radio" name="threadsafetyselection" value="requestthread" />Request level attributes<br>
+						<input type="radio" name="threadsafetyselection" value="nonthreadsafe" />Non thread safe<br>
+						<input type="radio" name="threadsafetyselection" value="threadsafe" />Thread safe<br>
+						<input type="submit" value="Execute" />
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
